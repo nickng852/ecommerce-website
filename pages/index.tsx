@@ -1,7 +1,11 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 
-const Home: NextPage = () => {
+import { client } from "../lib/client";
+
+const Home: NextPage = ({ products }) => {
+  console.log(products);
+
   return (
     <div>
       <Head>
@@ -10,9 +14,18 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main></main>
+      <main>
+        <div>{products?.map((product) => product.name)}</div>
+      </main>
     </div>
   );
+};
+
+export const getServerSideProps = async () => {
+  const query = '*[_type == "product"]';
+  const products = await client.fetch(query);
+
+  return { props: { products } };
 };
 
 export default Home;
