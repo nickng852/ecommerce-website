@@ -1,18 +1,21 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
+    "./node_modules/flowbite-react/**/*.{js,ts,jsx,tsx}",
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
+    "./public/**/*.html",
   ],
   presets: [],
   darkMode: "media", // or 'class'
   theme: {
     screens: {
-      sm: "640px",
-      md: "768px",
-      lg: "1024px",
-      xl: "1280px",
-      "2xl": "1536px",
+      sm: "640px", // iPhone
+      md: "768px", // iPad
+      lg: "1024px", // iPad Pro
+      xl: "1280px", // Desktop
+      "2xl": "1536px", // Desktop
+      "3xl": "2000px", // Desktop
     },
     colors: ({ colors }) => ({
       inherit: colors.inherit,
@@ -965,5 +968,5 @@ module.exports = {
     "active",
     "disabled",
   ],
-  plugins: [],
+  plugins: [require("flowbite/plugin")],
 };
