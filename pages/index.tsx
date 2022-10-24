@@ -9,7 +9,7 @@ interface Props {
 const Home = ({ products }: Props) => {
   return (
     <main className="flex items-center justify-center bg-gray-50 p-4 2xl:px-[45rem]">
-      <div className="flex w-full flex-col justify-between gap-4 md:flex-row md:gap-0">
+      <div className="flex w-full flex-col items-center justify-center gap-4 md:flex-row md:justify-between">
         {products?.map((product) => {
           return <Card key={product._id} product={product} />;
         })}
