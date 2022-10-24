@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { GetStaticPaths, GetStaticProps } from "next";
 import Image from "next/image";
+import { ParsedUrlQuery } from "querystring";
 import { MinusCircleIcon, PlusCircleIcon } from "@heroicons/react/24/outline";
 import { client, urlFor } from "../../lib/client";
 import { useAppContext } from "../../contexts/AppContext";
@@ -11,6 +12,10 @@ import Card from "../../components/Card";
 interface Props {
   products: IProduct[];
   product: IProduct;
+}
+
+interface IParams extends ParsedUrlQuery {
+  slug: string;
 }
 
 const ProductDetails = ({ products, product }: Props) => {
@@ -105,7 +110,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
   return { paths, fallback: "blocking" };
 };
 
-export const getStaticProps: GetStaticProps = async ({ params: { slug } }) => {
+export const getStaticProps: GetStaticProps = async (context) => {
+  const { slug } = context.params as IParams;
   const productsQuery = '*[_type == "product"]';
   const productQuery = `*[_type == "product" && slug.current == '${slug}'][0]`;
 
