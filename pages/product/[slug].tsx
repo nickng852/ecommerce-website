@@ -19,11 +19,11 @@ interface IParams extends ParsedUrlQuery {
 }
 
 const ProductDetails = ({ products, product }: Props) => {
-  const { increment, decrement, quantity } = useAppContext();
+  const { quantity, increment, decrement, addCart } = useAppContext();
   const [imgIndex, setImgIndex] = useState<number>(0);
 
   return (
-    <main className="space-y-12 p-4 md:flex md:flex-col md:gap-10 md:space-y-0 2xl:px-48 3xl:px-96">
+    <main className="space-y-12 p-4 md:flex md:flex-col md:gap-10 md:space-y-0 xl:p-12 2xl:px-48 3xl:px-96">
       <div className="flex flex-col gap-6 md:flex-row md:gap-6 xl:gap-10">
         <div className="flex flex-col gap-6 md:w-2/5 xl:w-1/3">
           <div className="flex w-full items-center justify-center rounded-3xl bg-gray-100 p-4">
@@ -54,7 +54,9 @@ const ProductDetails = ({ products, product }: Props) => {
 
         <div className="flex flex-col gap-6 md:w-3/5 xl:w-2/3">
           <div className="text-lg text-gray-600">{product.name}</div>
-          <div className="text-lg text-gray-600">${product.price}</div>
+          <div className="text-lg text-gray-600">
+            ${product.price.toLocaleString()}
+          </div>
           <div className="flex items-center gap-6">
             <div className="text-lg text-gray-600">Quantity</div>
             <div className="cursor-pointer p-4" onClick={decrement}>
@@ -73,7 +75,11 @@ const ProductDetails = ({ products, product }: Props) => {
           </div>
 
           <div className="flex gap-6">
-            <ActionButton btnColor="light" btnText="Add to cart" />
+            <ActionButton
+              btnColor="light"
+              btnText="Add to cart"
+              onClick={() => addCart(product, quantity)}
+            />
             <ActionButton btnColor="dark" btnText="Buy now" />
           </div>
         </div>

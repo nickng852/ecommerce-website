@@ -23,5 +23,5 @@ export interface IProduct {
   name: string;
   price: number;
   slug: ISlug;
-  quantity?: number;
+  quantity: number;
 }

@@ -34,5 +34,11 @@ export default {
       title: "Details",
       type: "string",
     },
+    {
+      name: "quantity",
+      title: "Quantity",
+      type: "number",
+      initialValue: 0,
+    },
   ],
 };
