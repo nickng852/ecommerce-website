@@ -50,8 +50,8 @@ const Sidebar = () => {
   return (
     <motion.div
       className="absolute top-0 right-0 flex h-screen w-full"
-      initial={{ opacity: 0.5, x: "1%" }}
-      animate={{ opacity: 1, x: "0%" }}
+      initial={{ opacity: 0.5 }}
+      animate={{ opacity: 1 }}
       transition={{ type: "spring", stiffness: 100 }}
     >
       <div className="hidden h-full w-full md:block"></div>
@@ -90,7 +90,7 @@ const Sidebar = () => {
                         ${cartItem.price.toLocaleString()}
                       </div>
 
-                      <div className="flex flex-col xl:flex-row xl:items-center">
+                      <div className="flex flex-col xl:flex-row xl:items-center xl:justify-between">
                         <div className="flex items-center">
                           <div className="text-gray-600">Quantity</div>
                           <div
