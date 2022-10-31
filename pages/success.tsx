@@ -64,7 +64,7 @@ const Success = ({ order }: Props) => {
                   minimumFractionDigits: 2,
                   maximumFractionDigits: 2,
                 })}
-              </div>{" "}
+              </div>
             </div>
           </div>
         </div>
