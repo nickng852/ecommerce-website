@@ -19,7 +19,13 @@ const Card = ({ product }: Props) => {
         />
         <div className="flex flex-col items-center justify-center gap-4">
           <p className="text-center text-gray-600">{product.name}</p>
-          <p className="text-gray-600">${product.price.toLocaleString()}</p>
+          <p className="text-gray-600">
+            $
+            {product.price.toLocaleString(undefined, {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })}
+          </p>
         </div>
       </main>
     </Link>

@@ -55,7 +55,11 @@ const ProductDetails = ({ products, product }: Props) => {
         <div className="flex flex-col gap-6 md:w-3/5 xl:w-2/3">
           <div className="text-lg text-gray-600">{product.name}</div>
           <div className="text-lg text-gray-600">
-            ${product.price.toLocaleString()}
+            $
+            {product.price.toLocaleString(undefined, {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })}
           </div>
           <div className="flex items-center gap-6">
             <div className="text-lg text-gray-600">Quantity</div>

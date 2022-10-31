@@ -87,7 +87,7 @@ const Sidebar = () => {
                   {cartItems.map((cartItem: IProduct) => {
                     return (
                       <div
-                        className="flex w-full items-center justify-between gap-2 rounded-3xl bg-white p-4"
+                        className="flex w-full items-center justify-between gap-2 rounded-3xl bg-white p-4 xl:gap-6"
                         key={cartItem._id}
                       >
                         <div className="flex h-full items-center justify-center">
@@ -103,7 +103,11 @@ const Sidebar = () => {
                         <div className="w-full">
                           <div className="text-gray-600">{cartItem.name}</div>
                           <div className="text-gray-600">
-                            ${cartItem.price.toLocaleString()}
+                            $
+                            {cartItem.price.toLocaleString(undefined, {
+                              minimumFractionDigits: 2,
+                              maximumFractionDigits: 2,
+                            })}
                           </div>
 
                           <div className="flex flex-col xl:flex-row xl:items-center xl:justify-between">
@@ -148,7 +152,11 @@ const Sidebar = () => {
                     Total Quantity: {totalQuantity}
                   </div>
                   <div className="flex w-full justify-end text-lg font-semibold">
-                    Grand Total: ${totalPrice.toLocaleString()}
+                    Grand Total: $
+                    {totalPrice.toLocaleString(undefined, {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2,
+                    })}
                   </div>
                 </div>
               )}
