@@ -10,15 +10,17 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.0.12",
+    "@stripe/stripe-js": "^1.42.0",
     "flowbite": "^1.5.3",
     "flowbite-react": "^0.2.0",
     "framer-motion": "^7.6.1",
-    "next": "12.3.1",
+    "next": "^12.3.1",
     "react": "18.2.0",
     "react-click-away-listener": "^2.2.2",
     "react-dom": "18.2.0",
     "react-hot-toast": "^2.4.0",
-    "react-icons": "^4.6.0"
+    "react-icons": "^4.6.0",
+    "stripe": "^10.15.0"
   },
   "devDependencies": {
     "@sanity/image-url": "^1.0.1",
