@@ -60,7 +60,7 @@ const Success = ({ order }: Props) => {
                 Grand Total: <span className="uppercase">{order.currency}</span>
               </p>
               <div>
-                {order.amount_total.toLocaleString(undefined, {
+                {formatAmount(order.amount_total).toLocaleString(undefined, {
                   minimumFractionDigits: 2,
                   maximumFractionDigits: 2,
                 })}
