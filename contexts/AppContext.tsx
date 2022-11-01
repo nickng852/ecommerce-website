@@ -72,7 +72,6 @@ export const AppContext = ({ children }: ChildrenProps) => {
         `${product.name} x ${quantity} has been added to your cart.`
       );
     }
-    setQuantity(1);
   };
 
   const removeCart = (product: IProduct) => {

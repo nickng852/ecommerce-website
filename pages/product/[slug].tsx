@@ -23,7 +23,7 @@ const ProductDetails = ({ products, product }: Props) => {
   const [imgIndex, setImgIndex] = useState<number>(0);
 
   return (
-    <main className="space-y-12 p-4 md:flex md:flex-col md:gap-10 md:space-y-0 xl:p-12 2xl:px-48 3xl:px-96">
+    <main className="space-y-12 bg-white p-4 md:flex md:flex-col md:gap-10 md:space-y-0 xl:p-12 2xl:px-48 3xl:px-96">
       <div className="flex flex-col gap-6 md:flex-row md:gap-6 xl:gap-10">
         <div className="flex flex-col gap-6 md:w-2/5 xl:w-1/3">
           <div className="flex w-full items-center justify-center rounded-3xl bg-gray-100 p-4">
@@ -89,12 +89,12 @@ const ProductDetails = ({ products, product }: Props) => {
         </div>
       </div>
 
-      <div>
-        <div className="flex items-center justify-center text-lg text-gray-600">
+      <div className="flex flex-col gap-2 md:gap-4 xl:gap-6">
+        <div className="text-center text-lg text-gray-600">
           You may also like...
         </div>
 
-        <div className="flex w-full flex-col items-center justify-center gap-4 md:flex-row md:justify-around">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {products?.map((product) => {
             return <Card key={product._id} product={product} />;
           })}

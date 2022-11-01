@@ -18,7 +18,9 @@ const Card = ({ product }: Props) => {
           height={200}
         />
         <div className="flex flex-col items-center justify-center gap-4">
-          <p className="text-center text-gray-600">{product.name}</p>
+          <p className="flex items-center justify-center text-center text-gray-600">
+            {product.name}
+          </p>
           <p className="text-gray-600">
             $
             {product.price.toLocaleString(undefined, {
