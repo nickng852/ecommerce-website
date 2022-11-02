@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { GetStaticPaths, GetStaticProps } from "next";
+import { useRouter } from "next/router";
 import Image from "next/image";
 import { ParsedUrlQuery } from "querystring";
 import { MinusCircleIcon, PlusCircleIcon } from "@heroicons/react/24/outline";
@@ -22,6 +23,11 @@ const ProductDetails = ({ products, product }: Props) => {
   const { quantity, increment, decrement, showCart, setShowCart, addCart } =
     useAppContext();
   const [imgIndex, setImgIndex] = useState<number>(0);
+  const router = useRouter();
+
+  useEffect(() => {
+    setImgIndex(0);
+  }, [router.asPath]);
 
   const buyNow = (product: IProduct, quantity: number) => {
     addCart(product, quantity);
