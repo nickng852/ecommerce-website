@@ -107,15 +107,7 @@ const ProductDetails = ({ products, product }: Props) => {
 
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {products?.map((product) => {
-            return (
-              <Card
-                key={product._id}
-                product={product}
-                onClick={() => {
-                  setImgIndex(0);
-                }}
-              />
-            );
+            return <Card key={product._id} product={product} />;
           })}
         </div>
       </div>
