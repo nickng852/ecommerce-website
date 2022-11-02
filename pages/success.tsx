@@ -15,8 +15,8 @@ const Success = ({ order }: Props) => {
   };
 
   return (
-    <main className="flex h-full w-full items-center justify-center bg-gray-50 p-4 xl:p-12 2xl:px-[45rem]">
-      <div className="flex w-full flex-col items-center justify-center gap-6 rounded-xl bg-white p-10">
+    <main className="flex min-h-full flex-col bg-gray-50 p-4 md:items-center md:justify-center">
+      <div className="flex w-full max-w-[60rem] flex-col items-center justify-center gap-6 rounded-xl bg-white p-10">
         <h1 className="font-semibold">Confirmation</h1>
 
         <div className="w-full text-center text-gray-600">

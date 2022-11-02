@@ -19,8 +19,15 @@ interface IParams extends ParsedUrlQuery {
 }
 
 const ProductDetails = ({ products, product }: Props) => {
-  const { quantity, increment, decrement, addCart } = useAppContext();
+  const { quantity, increment, decrement, showCart, setShowCart, addCart } =
+    useAppContext();
   const [imgIndex, setImgIndex] = useState<number>(0);
+
+  const buyNow = (product: IProduct, quantity: number) => {
+    addCart(product, quantity);
+
+    setShowCart(!showCart);
+  };
 
   return (
     <main className="space-y-12 bg-white p-4 md:flex md:flex-col md:gap-10 md:space-y-0 xl:p-12 2xl:px-48 3xl:px-96">
@@ -35,18 +42,18 @@ const ProductDetails = ({ products, product }: Props) => {
             />
           </div>
 
-          <div className="flex cursor-pointer items-center justify-between gap-2">
+          <div className="min-h-26 flex w-full items-center gap-2 2xl:gap-4">
             {product?.image.map((image: IImage, index: number) => (
               <Image
                 src={urlFor(image).url()}
-                className="rounded-xl bg-gray-100"
+                className="cursor-pointer rounded-xl bg-gray-100"
                 onClick={() => {
                   setImgIndex(index);
                 }}
                 alt=""
                 key={image?._key}
-                width={200}
-                height={200}
+                width={100}
+                height={100}
               />
             ))}
           </div>
@@ -78,13 +85,17 @@ const ProductDetails = ({ products, product }: Props) => {
             {product.details}
           </div>
 
-          <div className="flex gap-6">
+          <div className="z-0 flex gap-6">
             <ActionButton
               btnColor="light"
               btnText="Add to cart"
               onClick={() => addCart(product, quantity)}
             />
-            <ActionButton btnColor="dark" btnText="Buy now" />
+            <ActionButton
+              btnColor="dark"
+              btnText="Buy now"
+              onClick={() => buyNow(product, quantity)}
+            />
           </div>
         </div>
       </div>

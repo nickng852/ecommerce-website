@@ -1,6 +1,6 @@
 import Image from "next/image";
-import { motion } from "framer-motion";
 import ClickAwayListener from "react-click-away-listener";
+import { motion } from "framer-motion";
 import { FiX } from "react-icons/fi";
 import { MinusCircleIcon, PlusCircleIcon } from "@heroicons/react/24/outline";
 import { urlFor } from "../lib/client";
@@ -49,6 +49,8 @@ const Sidebar = () => {
   };
 
   const handleCheckout = async () => {
+    if (cartItems.length == 0) return;
+
     const stripe = await getStripe();
     const response = await fetch("/api/stripe", {
       method: "POST",
@@ -63,7 +65,7 @@ const Sidebar = () => {
 
   return (
     <motion.div
-      className="absolute top-0 right-0 flex h-screen w-full"
+      className="absolute top-0 z-10 flex h-screen w-full"
       initial={{ opacity: 0.5 }}
       animate={{ opacity: 1 }}
       transition={{ type: "spring", stiffness: 100 }}
@@ -71,103 +73,109 @@ const Sidebar = () => {
       <div className="hidden h-full w-full md:block"></div>
 
       <ClickAwayListener onClickAway={handleClickAway}>
-        <div className="static flex h-full w-full flex-col items-center justify-center bg-gray-50 p-2 shadow-xl md:w-11/12 xl:w-2/5 2xl:p-6">
-          <div
-            className="absolute top-4 right-4 cursor-pointer p-2 md:right-5 md:top-5 lg:right-6 lg:top-6"
-            onClick={handleClickAway}
-          >
-            <FiX size={25} />
-          </div>
+        <div className="flex h-full w-full flex-col items-center justify-center gap-4 bg-gray-50 p-2 shadow-xl md:w-11/12 xl:w-2/5 2xl:p-6">
+          <header className="flex w-full shrink-0 items-center justify-end">
+            <div
+              className="flex cursor-pointer items-center justify-center p-1 md:p-2"
+              onClick={handleClickAway}
+            >
+              <FiX size={25} />
+            </div>
+          </header>
 
-          <div className="flex h-full w-full flex-col justify-between">
-            <div className="flex h-full w-full flex-col items-center justify-center overflow-auto">
-              {cartItems.length === 0 && <div>Your cart is empty.</div>}
-              {cartItems.length >= 1 && (
-                <div className="flex w-full flex-col gap-4">
-                  {cartItems.map((cartItem: IProduct) => {
-                    return (
-                      <div
-                        className="flex w-full items-center justify-between gap-2 rounded-3xl bg-white p-4 xl:gap-6"
-                        key={cartItem._id}
-                      >
-                        <div className="flex h-full items-center justify-center">
-                          <Image
-                            src={urlFor(cartItem?.image[0]).url()}
-                            className="rounded-xl p-2"
-                            alt=""
-                            width={200}
-                            height={200}
-                          />
+          <div className="flex h-full w-full flex-1 flex-col overflow-auto md:items-center md:justify-center">
+            {cartItems.length === 0 && (
+              <div className="flex h-full items-center justify-center">
+                Your cart is empty.
+              </div>
+            )}
+
+            {cartItems.length >= 1 && (
+              <div className="flex w-full flex-col gap-2 xl:gap-4">
+                {cartItems.map((cartItem: IProduct) => {
+                  return (
+                    <div
+                      className="flex w-full items-center gap-2 rounded-3xl bg-white p-4 xl:gap-4"
+                      key={cartItem._id}
+                    >
+                      <div className="flex h-full items-center justify-center">
+                        <Image
+                          src={urlFor(cartItem?.image[0]).url()}
+                          className="rounded-xl p-2"
+                          alt=""
+                          width={200}
+                          height={200}
+                        />
+                      </div>
+
+                      <div className="flex w-full flex-col justify-between text-sm text-gray-600 md:text-base">
+                        <div>{cartItem.name}</div>
+                        <div>
+                          $
+                          {cartItem.price.toLocaleString(undefined, {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                          })}
                         </div>
 
-                        <div className="w-full">
-                          <div className="text-gray-600">{cartItem.name}</div>
-                          <div className="text-gray-600">
-                            $
-                            {cartItem.price.toLocaleString(undefined, {
-                              minimumFractionDigits: 2,
-                              maximumFractionDigits: 2,
-                            })}
-                          </div>
+                        <div className="flex items-center gap-2 xl:gap-4">
+                          <div>Quantity</div>
 
-                          <div className="flex flex-col xl:flex-row xl:items-center xl:justify-between">
-                            <div className="flex items-center">
-                              <div className="text-gray-600">Quantity</div>
-                              <div
-                                className="cursor-pointer p-4"
-                                onClick={() => decrement(cartItem)}
-                              >
-                                <MinusCircleIcon className="h-4 w-4 lg:h-5 lg:w-5" />
-                              </div>
-                              <div className="flex w-6 items-center justify-center text-gray-600">
-                                {cartItem.quantity}
-                              </div>
-                              <div
-                                className="cursor-pointer p-4"
-                                onClick={() => increment(cartItem)}
-                              >
-                                <PlusCircleIcon className="h-4 w-4 lg:h-5 lg:w-5" />
-                              </div>
+                          <div className="flex">
+                            <div
+                              className="cursor-pointer p-4"
+                              onClick={() => decrement(cartItem)}
+                            >
+                              <MinusCircleIcon className="h-4 w-4 lg:h-5 lg:w-5" />
                             </div>
-
-                            <div>
-                              <ActionButton
-                                btnColor="light"
-                                btnText="Remove"
-                                onClick={() => removeCart(cartItem)}
-                              />
+                            <div className="flex w-6 items-center justify-center">
+                              {cartItem.quantity}
+                            </div>
+                            <div
+                              className="cursor-pointer p-4"
+                              onClick={() => increment(cartItem)}
+                            >
+                              <PlusCircleIcon className="h-4 w-4 lg:h-5 lg:w-5" />
                             </div>
                           </div>
                         </div>
                       </div>
-                    );
+
+                      <div
+                        className="cursor-pointer p-1 md:p-2"
+                        onClick={() => removeCart(cartItem)}
+                      >
+                        <FiX size={25} />
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+
+          <footer className="flex w-full shrink-0 flex-col gap-4 text-sm md:text-base">
+            {totalQuantity > 0 && (
+              <div className="flex w-full flex-col gap-4 text-gray-600">
+                <div className="flex w-full justify-end">
+                  Total Quantity: {totalQuantity}
+                </div>
+                <div className="flex w-full justify-end font-semibold">
+                  Grand Total: $
+                  {totalPrice.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
                   })}
                 </div>
-              )}
-            </div>
-            <div className="w-full">
-              {totalQuantity > 0 && (
-                <div className="flex w-full flex-col items-center justify-center gap-4 p-6 text-gray-600">
-                  <div className="flex w-full justify-end">
-                    Total Quantity: {totalQuantity}
-                  </div>
-                  <div className="flex w-full justify-end text-lg font-semibold">
-                    Grand Total: $
-                    {totalPrice.toLocaleString(undefined, {
-                      minimumFractionDigits: 2,
-                      maximumFractionDigits: 2,
-                    })}
-                  </div>
-                </div>
-              )}
+              </div>
+            )}
 
-              <ActionButton
-                btnColor="light"
-                btnText="Checkout"
-                onClick={handleCheckout}
-              />
-            </div>
-          </div>
+            <ActionButton
+              btnColor="light"
+              btnText="Checkout"
+              onClick={handleCheckout}
+            />
+          </footer>
         </div>
       </ClickAwayListener>
     </motion.div>
