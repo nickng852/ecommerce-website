@@ -65,7 +65,7 @@ const Sidebar = () => {
 
   return (
     <motion.div
-      className="absolute top-0 z-10 flex h-screen w-full"
+      className="top-0 z-10 flex h-screen w-full"
       initial={{ opacity: 0.5 }}
       animate={{ opacity: 1 }}
       transition={{ type: "spring", stiffness: 100 }}

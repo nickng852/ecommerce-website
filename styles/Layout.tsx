@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { useAppContext } from "../contexts/AppContext";
 import Navbar from "../components/Navbar";
 
 interface Props {
@@ -6,6 +7,8 @@ interface Props {
 }
 
 const Layout = ({ children }: Props) => {
+  const { showCart } = useAppContext();
+
   return (
     <div className="flex h-screen flex-col">
       <Head>
@@ -16,7 +19,9 @@ const Layout = ({ children }: Props) => {
 
       <Navbar />
 
-      <main className="flex-1 overflow-auto">{children}</main>
+      <main className={`flex-1 ${showCart ? "overflow-auto" : ""}`}>
+        {children}
+      </main>
     </div>
   );
 };
