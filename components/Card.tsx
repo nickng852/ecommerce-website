@@ -5,12 +5,11 @@ import { IProduct } from "../interfaces/product";
 
 interface Props {
   product: IProduct;
-  onClick?: () => void;
 }
 
-const Card = ({ product, onClick }: Props) => {
+const Card = ({ product }: Props) => {
   return (
-    <Link href={`/product/${product?.slug?.current}`} onClick={onClick}>
+    <Link href={`/product/${product?.slug?.current}`}>
       <main className="flex w-full cursor-pointer flex-col items-center justify-center gap-10 rounded-3xl bg-white p-8">
         <Image
           src={urlFor(product?.image[0]).url()}

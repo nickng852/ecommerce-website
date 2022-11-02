@@ -35,7 +35,7 @@ const ProductDetails = ({ products, product }: Props) => {
         <div className="flex flex-col gap-6 md:w-2/5 xl:w-1/3">
           <div className="flex w-full items-center justify-center rounded-3xl bg-gray-100 p-4">
             <Image
-              src={urlFor(product?.image[imgIndex]).url()}
+              src={urlFor(product?.image[imgIndex] || product?.image[0]).url()}
               alt={product?.slug?.current}
               width={500}
               height={500}
